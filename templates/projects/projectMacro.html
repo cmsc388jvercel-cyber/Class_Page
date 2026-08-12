@@ -15,7 +15,8 @@
     </a>
     <div class="flex items-center pl-4 sm:pl-1 sm:py-4 pt-0 pb-4">
       <span id="assigned" class="flex items-center font-light gap-2 bg-gray-400/20 px-3 py-0.5 rounded-full text-gray-500 dark:text-gray-300 mr-4">
-        {% include "projects/icons/lock.html" %}
+        <span id="lockIcon">{% include "projects/icons/lock.html" %}</span>
+        <span id="unlockIcon" class="hidden">{% include "projects/icons/unlock.html" %}</span>
         <span class="whitespace-nowrap">{{ assigned }}</span>
       </span>
       {%if slide %}
@@ -115,10 +116,15 @@ if ("{{ id }}") {
   let dueDate = new Date(`${dueMonth} ${dueDay}, ${year}`);
   let assDate = new Date(`${assMonth} ${assDay}, ${year}`);
   
+  function unlockAssigned(p) {
+    p.querySelector("#lockIcon").classList.add("hidden");
+    p.querySelector("#unlockIcon").classList.remove("hidden");
+  }
+
   // assigned past month
   if (assDate.getMonth() < new Date().getMonth()) {
     let p = document.querySelector("#{{ id }}");
-    p.querySelector("#assigned").remove()
+    unlockAssigned(p);
   }
   // assigned same month past date
   else if (
@@ -126,7 +132,7 @@ if ("{{ id }}") {
     && assDate.getDate() <= new Date().getDate()
     ) {
       let p = document.querySelector("#{{ id }}");
-      p.querySelector("#assigned").remove()
+      unlockAssigned(p);
   } else {
     let p = document.querySelector("#{{ id }}");
     p.classList.add("opacity-50");
