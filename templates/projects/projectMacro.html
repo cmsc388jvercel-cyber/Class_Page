@@ -1,4 +1,4 @@
-{% macro projectComponent(classroom, id, title, thehub, grade, assigned, due, sample, slide, slide2, textbook=none) %}
+{% macro projectComponent(classroom, id, title, thehub, grade, assigned, due, sample, slide, slide2) %}
 <div id="{{ id }}" class="flex flex-col gap-1">
   <div id="titleBar" class="bg-gray-100 dark:bg-gray-700 rounded-t-2xl overflow-hidden flex flex-col sm:flex-row justify-between sm:gap-4 rounded-b-md">
     <a target="_blank" href="{{ classroom }}" class="group project-link sm:ring-4 ring-white dark:ring-gray-800 bg-gray-100 dark:bg-gray-700 sm:!rounded-r-full !flex !flex-col sm:!flex-row !justify-between !gap-4 !p-4 !pl-5 sm:!pr-0">
@@ -53,13 +53,6 @@
         Readme
         {% include "projects/icons/arrow.html" %}
       </a>
-      {% if textbook %}
-        <a target="_blank" class="group project-link" href="{{ textbook }}">
-          {% include "icons/book.html" %}
-          Textbook
-          {% include "projects/icons/arrow.html" %}
-        </a>
-      {% endif %}
       {% if sample %}
         {% if sample == "wait" %}
           <div class="group cursor-wait bg-gray-200 dark:bg-gray-600 project-link">
