@@ -19,6 +19,11 @@
         <span id="unlockIcon" class="hidden">{% include "projects/icons/unlock.html" %}</span>
         <span class="whitespace-nowrap">{{ assigned }}</span>
       </span>
+      {% if download %}
+        <a href="{{ download }}" download title="Download starter code" class="group flex items-center gap-2 bg-emerald-500/20 hover:bg-emerald-500/30 px-3 py-0.5 rounded-full text-emerald-500 dark:text-emerald-300 mr-4 no-underline duration-300">
+          {% include "projects/icons/download.html" %}
+        </a>
+      {% endif %}
       {%if slide %}
         <a target="_blank" href="{{ slide }}" class="group relative overflow-hidden no-underline flex duration-300 items-center font-light gap-2 bg-amber-400/20 hover:bg-amber-400/30 px-3 py-0.5 rounded-full text-amber-500 hover:text-amber-600 dark:hover:text-amber-200 dark:text-amber-300 mr-4">
           <div class="duration-300 group-hover:translate-y-8">
@@ -45,11 +50,6 @@
         {% include "projects/icons/due.html" %}
         <span class="whitespace-nowrap">{{ due }}</span>
       </span>
-      {% if download %}
-        <a href="{{ download }}" download title="Download starter code" class="group flex items-center gap-2 bg-gray-400/20 hover:bg-gray-400/30 px-3 py-0.5 rounded-full text-gray-500 dark:text-gray-300 ml-4 no-underline duration-300">
-          {% include "projects/icons/download.html" %}
-        </a>
-      {% endif %}
     </div>
   </div>
   {% if id != "fp" %}
