@@ -1,4 +1,4 @@
-{% macro projectComponent(classroom, id, title, thehub, grade, assigned, due, sample, slide, slide2) %}
+{% macro projectComponent(classroom, id, title, thehub, grade, assigned, due, sample, slide, slide2, download=None) %}
 <div id="{{ id }}" class="flex flex-col gap-1">
   <div id="titleBar" class="bg-gray-100 dark:bg-gray-700 rounded-t-2xl overflow-hidden flex flex-col sm:flex-row justify-between sm:gap-4 rounded-b-md">
     <a target="_blank" href="{{ classroom }}" class="group project-link sm:ring-4 ring-white dark:ring-gray-800 bg-gray-100 dark:bg-gray-700 sm:!rounded-r-full !flex !flex-col sm:!flex-row !justify-between !gap-4 !p-4 !pl-5 sm:!pr-0">
@@ -45,6 +45,11 @@
         {% include "projects/icons/due.html" %}
         <span class="whitespace-nowrap">{{ due }}</span>
       </span>
+      {% if download %}
+        <a href="{{ download }}" download title="Download starter code" class="group flex items-center gap-2 bg-gray-400/20 hover:bg-gray-400/30 px-3 py-0.5 rounded-full text-gray-500 dark:text-gray-300 ml-4 no-underline duration-300">
+          {% include "projects/icons/download.html" %}
+        </a>
+      {% endif %}
     </div>
   </div>
   {% if id != "fp" %}
