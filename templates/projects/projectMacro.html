@@ -1,5 +1,5 @@
-{% macro projectComponent(classroom, id, title, thehub, grade, assigned, due, sample, slide, slide2, download=None) %}
-<div id="{{ id }}" class="flex flex-col gap-1">
+{% macro projectComponent(classroom, id, title, thehub, grade, assigned, due, sample, slide, slide2, download=None, released=None) %}
+<div id="{{ id }}" class="flex flex-col gap-1{% if released == false %} opacity-50 pointer-events-none{% endif %}">
   <div id="titleBar" class="bg-gray-100 dark:bg-gray-700 rounded-t-2xl overflow-hidden flex flex-col sm:flex-row justify-between sm:gap-4 rounded-b-md">
     <a target="_blank" href="{{ classroom }}" class="group project-link sm:ring-4 ring-white dark:ring-gray-800 bg-gray-100 dark:bg-gray-700 sm:!rounded-r-full !flex !flex-col sm:!flex-row !justify-between !gap-4 !p-4 !pl-5 sm:!pr-0">
       <h2 id="title" class="my-0 flex mr-auto items-center gap-4 relative z-10 group-hover:text-blue-500 dark:group-hover:text-blue-300 duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.25)]">
@@ -15,8 +15,8 @@
     </a>
     <div class="flex items-center pl-4 sm:pl-1 sm:py-4 pt-0 pb-4">
       <span id="assigned" class="flex items-center font-light gap-2 bg-gray-400/20 px-3 py-0.5 rounded-full text-gray-500 dark:text-gray-300 mr-4">
-        <span id="lockIcon">{% include "projects/icons/lock.html" %}</span>
-        <span id="unlockIcon" class="hidden">{% include "projects/icons/unlock.html" %}</span>
+        <span id="lockIcon"{% if released == true %} class="hidden"{% endif %}>{% include "projects/icons/lock.html" %}</span>
+        <span id="unlockIcon" class="{% if released != true %}hidden{% endif %}">{% include "projects/icons/unlock.html" %}</span>
         <span class="whitespace-nowrap">{{ assigned }}</span>
       </span>
       {% if download %}
@@ -126,6 +126,7 @@ if ("{{ id }}") {
     p.querySelector("#unlockIcon").classList.remove("hidden");
   }
 
+  {% if released is none %}
   // assigned past month
   if (assDate.getMonth() < new Date().getMonth()) {
     let p = document.querySelector("#{{ id }}");
@@ -143,6 +144,7 @@ if ("{{ id }}") {
     p.classList.add("opacity-50");
     p.classList.add("pointer-events-none");
   }
+  {% endif %}
 
   // due past month
   if (dueDate.getMonth() < new Date().getMonth()) {

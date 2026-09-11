@@ -32,7 +32,9 @@ def homepage():
 
 @app.route('/388j/projects')
 def projects():
-    return render_template('projects.html')
+    now = datetime.now(COLLEGE_PARK_TZ)
+    release_status = {pid: now >= at for pid, at in PROJECT_RELEASE_DATES.items()}
+    return render_template('projects.html', release_status=release_status)
 
 @app.route('/388j/download/<project_id>')
 def download_project(project_id):
